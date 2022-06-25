@@ -36,6 +36,7 @@ class UserService {
       body: {'username': username, 'password': password},
     );
     HttpStatusMsg htm = HttpStatusMsg();
+    print(response.statusCode);
     if (response.statusCode == 200) {
       final result = jsonDecode(response.body);
       htm.success = true;

@@ -43,6 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     HttpStatusMsg htm =
         await userService.login(username: username, password: password);
     if (htm.success) {
+      print(htm.result);
       AlertHelper.showBar(context: context, msg: 'Welcome to Inventory App');
     } else {
       AlertHelper.showBar(context: context, msg: htm.errorMsg!, isError: true);
