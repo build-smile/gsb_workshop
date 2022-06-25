@@ -27,7 +27,8 @@ class UserService {
     return htm;
   }
 
-  login({required String username, required String password}) async {
+  Future<HttpStatusMsg> login(
+      {required String username, required String password}) async {
     Uri uri = Uri.parse('$HOST/token');
     final response = await http.post(
       uri,
@@ -35,7 +36,14 @@ class UserService {
       body: {'username': username, 'password': password},
     );
     HttpStatusMsg htm = HttpStatusMsg();
-    print(response.body);
-    if (response.statusCode == 200) {}
+    if (response.statusCode == 200) {
+      final result = jsonDecode(response.body);
+      htm.success = true;
+      htm.result = result['access_token'];
+      return htm;
+    }
+    htm.success = false;
+    htm.errorMsg = 'Invalid user';
+    return htm;
   }
 }
