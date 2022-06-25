@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gsb_workshop/components/UserForm.dart';
 import 'package:gsb_workshop/models/HttpStatusMsg.dart';
 import 'package:gsb_workshop/services/UserService.dart';
+import 'package:gsb_workshop/utils/LoadingProgress.dart';
 
 import '../../utils/AlertHelper.dart';
 
@@ -27,20 +28,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
   }
 
   _submit(String username, String password) async {
-    UserService userService = UserService();
-    HttpStatusMsg htm = await userService.register(username, password);
-    if (htm.success) {
-      AlertHelper.showBar(
-        context: context,
-        msg: 'Registered complete',
-      );
-      Navigator.pop(context);
-    } else {
-      AlertHelper.showBar(
-        context: context,
-        msg: htm.errorMsg!,
-        isError: true,
-      );
-    }
+    LoadingProgress.inProgress(() async {
+      UserService userService = UserService();
+      HttpStatusMsg htm = await userService.register(username, password);
+      if (htm.success) {
+        AlertHelper.showBar(
+          context: context,
+          msg: 'Registered complete',
+        );
+        Navigator.pop(context);
+      } else {
+        AlertHelper.showBar(
+          context: context,
+          msg: htm.errorMsg!,
+          isError: true,
+        );
+      }
+    });
   }
 }
