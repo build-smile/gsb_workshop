@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gsb_workshop/home.dart';
 import 'package:gsb_workshop/pages/accounts/login.dart';
 import 'package:gsb_workshop/pages/accounts/register.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:gsb_workshop/utils/LocalStorage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,8 +15,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      routes: {'/register': (context) => RegisterScreen()},
-      home: LoginScreen(),
+      routes: {
+        '/register': (context) => RegisterScreen(),
+        '/home': (context) => HomeScreen(),
+      },
+      home: FutureBuilder(
+        future: LocalStorage().getToken(),
+        builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+          if (snapshot.hasData) {
+            return HomeScreen();
+          }
+          return LoginScreen();
+        },
+      ),
       builder: EasyLoading.init(),
     );
   }

@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
         LocalStorage localStorage = LocalStorage();
         localStorage.storeToken('${htm.result}');
         AlertHelper.showBar(context: context, msg: 'Welcome to Inventory App');
+        Navigator.pushNamed(context, '/home');
       } else {
         AlertHelper.showBar(
             context: context, msg: htm.errorMsg!, isError: true);
