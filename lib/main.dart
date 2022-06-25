@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/register': (context) => RegisterScreen(),
         '/home': (context) => HomeScreen(),
+        '/login': (context) => LoginScreen()
       },
       home: FutureBuilder(
         future: LocalStorage().getToken(),

@@ -12,7 +12,7 @@ class LocalStorage {
     return token;
   }
 
-  removeToken(String token) async {
+  removeToken() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     print(await pref.remove('token'));
   }
