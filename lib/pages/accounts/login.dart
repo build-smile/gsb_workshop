@@ -3,6 +3,7 @@ import 'package:gsb_workshop/components/UserForm.dart';
 import 'package:gsb_workshop/models/HttpStatusMsg.dart';
 import 'package:gsb_workshop/services/UserService.dart';
 import 'package:gsb_workshop/utils/AlertHelper.dart';
+import 'package:gsb_workshop/utils/LoadingProgress.dart';
 import 'package:gsb_workshop/utils/LocalStorage.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -40,15 +41,18 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _submit(String username, String password) async {
-    UserService userService = UserService();
-    HttpStatusMsg htm =
-        await userService.login(username: username, password: password);
-    if (htm.success) {
-      LocalStorage localStorage = LocalStorage();
-      localStorage.storeToken('${htm.result}');
-      AlertHelper.showBar(context: context, msg: 'Welcome to Inventory App');
-    } else {
-      AlertHelper.showBar(context: context, msg: htm.errorMsg!, isError: true);
-    }
+    LoadingProgress.inProgress(() async {
+      UserService userService = UserService();
+      HttpStatusMsg htm =
+          await userService.login(username: username, password: password);
+      if (htm.success) {
+        LocalStorage localStorage = LocalStorage();
+        localStorage.storeToken('${htm.result}');
+        AlertHelper.showBar(context: context, msg: 'Welcome to Inventory App');
+      } else {
+        AlertHelper.showBar(
+            context: context, msg: htm.errorMsg!, isError: true);
+      }
+    });
   }
 }

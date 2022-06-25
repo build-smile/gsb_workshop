@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsb_workshop/pages/accounts/login.dart';
 import 'package:gsb_workshop/pages/accounts/register.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,6 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       routes: {'/register': (context) => RegisterScreen()},
       home: LoginScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }
