@@ -3,6 +3,7 @@ import 'package:gsb_workshop/components/UserForm.dart';
 import 'package:gsb_workshop/models/HttpStatusMsg.dart';
 import 'package:gsb_workshop/services/UserService.dart';
 import 'package:gsb_workshop/utils/AlertHelper.dart';
+import 'package:gsb_workshop/utils/LocalStorage.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -43,7 +44,8 @@ class _LoginScreenState extends State<LoginScreen> {
     HttpStatusMsg htm =
         await userService.login(username: username, password: password);
     if (htm.success) {
-      print(htm.result);
+      LocalStorage localStorage = LocalStorage();
+      localStorage.storeToken('${htm.result}');
       AlertHelper.showBar(context: context, msg: 'Welcome to Inventory App');
     } else {
       AlertHelper.showBar(context: context, msg: htm.errorMsg!, isError: true);
