@@ -26,4 +26,16 @@ class UserService {
     htm.errorMsg = 'Something went wrong';
     return htm;
   }
+
+  login({required String username, required String password}) async {
+    Uri uri = Uri.parse('$HOST/token');
+    final response = await http.post(
+      uri,
+      headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+      body: {'username': username, 'password': password},
+    );
+    HttpStatusMsg htm = HttpStatusMsg();
+    print(response.body);
+    if (response.statusCode == 200) {}
+  }
 }
