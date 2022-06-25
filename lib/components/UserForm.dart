@@ -8,25 +8,43 @@ class UserForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _keyForm = GlobalKey<FormState>();
     return Container(
       child: Form(
+        key: _keyForm,
         child: Column(
           children: [
             ListTile(
-              title: TextFormField(),
+              title: TextFormField(
+                validator: _validateString,
+                decoration: InputDecoration(labelText: 'Username'),
+              ),
             ),
             ListTile(
-              title: TextFormField(),
+              title: TextFormField(
+                validator: _validateString,
+                obscureText: true,
+                decoration: InputDecoration(labelText: 'Password'),
+              ),
             ),
             ListTile(
               title: ElevatedButton(
                 child: Text(buttonLabel),
-                onPressed: () {},
+                onPressed: () {
+                  if (_keyForm.currentState!.validate()) {}
+                },
               ),
             )
           ],
         ),
       ),
     );
+  }
+
+  String? _validateString(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Pleas fill data';
+    }
+    return null;
   }
 }
