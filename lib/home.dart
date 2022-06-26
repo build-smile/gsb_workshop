@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsb_workshop/pages/tabs/inventoryList.dart';
 import 'package:gsb_workshop/pages/tabs/setting.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -9,7 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 final tabs = [
-  Center(child: Text('Home')),
+  InventoryListScreen(),
   SettingScreen(),
 ];
 
