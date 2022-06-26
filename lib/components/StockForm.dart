@@ -29,12 +29,18 @@ class _StockFormState extends State<StockForm> {
           children: [
             ListTile(
               title: TextFormField(
+                onSaved: (String? value) {
+                  widget.inv.description = value!;
+                },
                 validator: _validateString,
                 decoration: InputDecoration(labelText: 'Name'),
               ),
             ),
             ListTile(
               title: TextFormField(
+                onSaved: (String? value) {
+                  widget.inv.stock = double.parse(value!);
+                },
                 keyboardType: TextInputType.number,
                 validator: _validateNumber,
                 decoration: InputDecoration(labelText: 'Stock'),
@@ -42,6 +48,9 @@ class _StockFormState extends State<StockForm> {
             ),
             ListTile(
               title: TextFormField(
+                onSaved: (String? value) {
+                  widget.inv.price = double.parse(value!);
+                },
                 keyboardType: TextInputType.number,
                 validator: _validateNumber,
                 decoration: InputDecoration(labelText: 'Price'),
@@ -51,7 +60,10 @@ class _StockFormState extends State<StockForm> {
                 title: ElevatedButton(
               child: Text(widget.buttonLabel),
               onPressed: () {
-                if (_keyForm.currentState!.validate()) {}
+                if (_keyForm.currentState!.validate()) {
+                  _keyForm.currentState!.save();
+                  widget.submit(widget.inv);
+                }
               },
             ))
           ],

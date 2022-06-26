@@ -24,5 +24,7 @@ class _AddInventoryScreenState extends State<AddInventoryScreen> {
     );
   }
 
-  _submit() {}
+  _submit(Inventory inv) {
+    //print('name: ${inv.description} stock:${inv.stock} price: ${inv.price}');
+  }
 }
