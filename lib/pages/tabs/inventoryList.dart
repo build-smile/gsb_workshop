@@ -33,6 +33,10 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
                   title: Text(inv.description),
                   subtitle: Text(updatedDate),
                   trailing: Text('$price Baht'),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/edit', arguments: inv)
+                        .then((value) => setState(() {}));
+                  },
                 );
               },
             );
@@ -43,7 +47,7 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         onPressed: () {
-          Navigator.pushNamed(context, '/add');
+          Navigator.pushNamed(context, '/add').then((value) => setState(() {}));
         },
       ),
     );
