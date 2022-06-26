@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gsb_workshop/models/Inventory.dart';
 import 'package:gsb_workshop/services/InventoryService.dart';
+import 'package:intl/intl.dart';
 
 class InventoryListScreen extends StatefulWidget {
   const InventoryListScreen({Key? key}) : super(key: key);
@@ -23,11 +24,15 @@ class _InventoryListScreenState extends State<InventoryListScreen> {
               itemCount: inventories.length,
               itemBuilder: (BuildContext context, int i) {
                 Inventory inv = inventories[i]!;
+                var f = NumberFormat("#,##0.00");
+                var d = DateFormat.yMMMEd();
+                String price = f.format(inv.price);
+                String updatedDate = d.format(inv.updatedDate!);
                 return ListTile(
                   leading: Icon(Icons.ad_units),
                   title: Text(inv.description),
-                  subtitle: Text(inv.createdDate.toString()),
-                  trailing: Text(inv.stock.toString()),
+                  subtitle: Text(updatedDate),
+                  trailing: Text('$price Baht'),
                 );
               },
             );
