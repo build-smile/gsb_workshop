@@ -16,7 +16,8 @@ class AlertHelper {
       {required BuildContext context,
       required String title,
       required String desc,
-      required Function function}) {
+      required Function function,
+      bool isCloseAuto = true}) {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -32,7 +33,9 @@ class AlertHelper {
               TextButton(
                   onPressed: () {
                     function();
-                    Navigator.pop(context);
+                    if (isCloseAuto) {
+                      Navigator.pop(context);
+                    }
                   },
                   child: Text('OK'))
             ],

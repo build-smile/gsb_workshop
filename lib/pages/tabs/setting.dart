@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gsb_workshop/utils/AlertHelper.dart';
 import 'package:gsb_workshop/utils/LocalStorage.dart';
 
 class SettingScreen extends StatefulWidget {
@@ -22,8 +23,16 @@ class _SettingScreenState extends State<SettingScreen> {
   }
 
   _logout() async {
-    LocalStorage localStorage = LocalStorage();
-    localStorage.removeToken();
-    Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+    AlertHelper.alertPopup(
+      context: context,
+      title: 'Logout',
+      desc: 'Are you sure want to Logout?',
+      isCloseAuto: false,
+      function: () {
+        LocalStorage localStorage = LocalStorage();
+        localStorage.removeToken();
+        Navigator.pushNamedAndRemoveUntil(context, '/login', (route) => false);
+      },
+    );
   }
 }
